@@ -288,7 +288,7 @@ export default function RegistrationForm() {
                     Loading...
                   </>
                 ) : (
-                  "Registere"
+                  "Register"
                 )}
               </button>
             </form>
