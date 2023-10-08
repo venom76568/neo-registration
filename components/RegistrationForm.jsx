@@ -1,31 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from 'react';
-import Nav from './Nav';
-import Success from './Success';
+import { useState } from "react";
+import Nav from "./Nav";
+import Success from "./Success";
 
 export default function RegistrationForm() {
   const [formData, setFormData] = useState({
-    fullName: '',
-    className: '',
-    schoolName: '',
-    city: '',
-    email: '',
-    phoneNumber: '',
-    whatsappNumber: '',
+    fullName: "",
+    className: "",
+    schoolName: "",
+    city: "",
+    email: "",
+    phoneNumber: "",
+    whatsappNumber: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [validationErrors, setValidationErrors] = useState({
-    fullName: '',
-    className: '',
-    schoolName: '',
-    city: '',
-    email: '',
-    phoneNumber: '',
-    whatsappNumber: '',
+    fullName: "",
+    className: "",
+    schoolName: "",
+    city: "",
+    email: "",
+    phoneNumber: "",
+    whatsappNumber: "",
   });
 
   const handleChange = (e) => {
@@ -43,27 +43,27 @@ export default function RegistrationForm() {
 
     // Reset previous validation errors
     setValidationErrors({
-      fullName: '',
-      className: '',
-      schoolName: '',
-      city: '',
-      email: '',
-      phoneNumber: '',
-      whatsappNumber: '',
+      fullName: "",
+      className: "",
+      schoolName: "",
+      city: "",
+      email: "",
+      phoneNumber: "",
+      whatsappNumber: "",
     });
 
     try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
+      const response = await fetch("/api/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       if (response.status === 201) {
         const data = await response.json();
-        console.log('User registered:', data.user);
+        console.log("User registered:", data.user);
         setIsSubmitted(true);
       } else if (response.status === 400) {
         const data = await response.json();
@@ -72,10 +72,10 @@ export default function RegistrationForm() {
           setValidationErrors(data.errors);
         }
       } else {
-        console.error('Registration failed:', response.statusText);
+        console.error("Registration failed:", response.statusText);
       }
     } catch (error) {
-      console.error('Error during registration:', error);
+      console.error("Error during registration:", error);
     } finally {
       setIsLoading(false);
     }
@@ -99,7 +99,7 @@ export default function RegistrationForm() {
                   Full Name:
                   <input
                     className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                      validationErrors.fullName ? 'border-red-500' : ''
+                      validationErrors.fullName ? "border-red-500" : ""
                     }`}
                     type="text"
                     name="fullName"
@@ -122,7 +122,7 @@ export default function RegistrationForm() {
                   Class:
                   <input
                     className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                      validationErrors.className ? 'border-red-500' : ''
+                      validationErrors.className ? "border-red-500" : ""
                     }`}
                     type="text"
                     name="className"
@@ -145,7 +145,7 @@ export default function RegistrationForm() {
                   School Name:
                   <input
                     className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                      validationErrors.schoolName ? 'border-red-500' : ''
+                      validationErrors.schoolName ? "border-red-500" : ""
                     }`}
                     type="text"
                     name="schoolName"
@@ -168,7 +168,7 @@ export default function RegistrationForm() {
                   City:
                   <input
                     className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                      validationErrors.city ? 'border-red-500' : ''
+                      validationErrors.city ? "border-red-500" : ""
                     }`}
                     type="text"
                     name="city"
@@ -191,7 +191,7 @@ export default function RegistrationForm() {
                   Email Address:
                   <input
                     className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                      validationErrors.email ? 'border-red-500' : ''
+                      validationErrors.email ? "border-red-500" : ""
                     }`}
                     type="email"
                     name="email"
@@ -214,7 +214,7 @@ export default function RegistrationForm() {
                   Phone Number:
                   <input
                     className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                      validationErrors.phoneNumber ? 'border-red-500' : ''
+                      validationErrors.phoneNumber ? "border-red-500" : ""
                     }`}
                     type="number"
                     name="phoneNumber"
@@ -235,10 +235,11 @@ export default function RegistrationForm() {
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   WhatsApp Number:
-                  <br />(if same as phone number, enter the same in WhatsApp number)
+                  <br />
+                  (if same as phone number, enter the same in WhatsApp number)
                   <input
                     className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                      validationErrors.whatsappNumber ? 'border-red-500' : ''
+                      validationErrors.whatsappNumber ? "border-red-500" : ""
                     }`}
                     type="number"
                     name="whatsappNumber"
@@ -257,7 +258,7 @@ export default function RegistrationForm() {
 
               <button
                 className={`shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded ${
-                  isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                  isLoading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 type="submit"
                 disabled={isLoading}
@@ -287,7 +288,7 @@ export default function RegistrationForm() {
                     Loading...
                   </>
                 ) : (
-                  'Registered'
+                  "Registered"
                 )}
               </button>
             </form>
