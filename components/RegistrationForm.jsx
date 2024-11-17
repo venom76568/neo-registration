@@ -38,10 +38,9 @@ export default function RegistrationForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setIsLoading(true);
 
-    // Reset previous validation errors
+    // Reset validation errors
     setValidationErrors({
       fullName: "",
       className: "",
@@ -51,6 +50,8 @@ export default function RegistrationForm() {
       phoneNumber: "",
       whatsappNumber: "",
     });
+
+    console.log("Submitting form data:", formData); // Debugging step
 
     try {
       const response = await fetch("/api/register", {
@@ -67,9 +68,12 @@ export default function RegistrationForm() {
         setIsSubmitted(true);
       } else if (response.status === 400) {
         const data = await response.json();
+        console.log("Error data from server:", data); // Log the server error response
         if (data.errors) {
-          // Set validation error messages based on the server response
           setValidationErrors(data.errors);
+        } else {
+          // Handle unexpected error structure
+          console.error("Unexpected error structure:", data);
         }
       } else {
         console.error("Registration failed:", response.statusText);
@@ -282,10 +286,10 @@ export default function RegistrationForm() {
                       <path
                         className="opacity-75"
                         fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm6 9a8 8 0 010-16V0h4a8 8 0 000 16h-4v-4zm10-3a8 8 0 00-8-8v-4a12 12 0 0112 12h-4z"
-                      ></path>
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm6 9a8 8 0 010-16V0h4a8 8 0 000 16h-4v-4zm10-"
+                      />
                     </svg>
-                    Loading...
+                    Processing...
                   </>
                 ) : (
                   "Register"
