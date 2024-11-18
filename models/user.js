@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
+// Define the schema
 const userSchema = new Schema({
   fullName: {
     type: String,
@@ -28,32 +29,16 @@ const userSchema = new Schema({
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return emailRegex.test(value);
       },
-      message: 'Invalid email format',
+      message: "Invalid email format",
     },
   },
   phoneNumber: {
     type: Number,
     required: true,
-    // validate: {
-    //   validator: (value) => {
-    //     // Use a regular expression to validate a 10-digit mobile number
-    //     const mobileRegex = /^\d{10}$/;
-    //     return mobileRegex.test(value.toString());
-    //   },
-    //   message: 'Invalid mobile number format (10 digits)',
-    // },
   },
   whatsappNumber: {
     type: Number,
     required: true,
-    // validate: {
-    //   validator: (value) => {
-    //     // Use a regular expression to validate a 10-digit mobile number
-    //     const mobileRegex = /^\d{10}$/;
-    //     return mobileRegex.test(value.toString());
-    //   },
-    //   message: 'Invalid WhatsApp number format (10 digits)',
-    // },
   },
   createdAt: {
     type: Date,
@@ -61,15 +46,14 @@ const userSchema = new Schema({
   },
 });
 
-
+// Check if the model already exists to avoid recompiling the model
 let User;
 
 if (mongoose.models.User) {
-  User = mongoose.model('User');
+  User = mongoose.model("User"); // Use existing model if it exists
 } else {
-  User = mongoose.model('User', userSchema);
+  User = mongoose.model("User", userSchema); // Create a new model if it doesn't exist
 }
 
-// module.exports = User;
-
-module.exports = mongoose.model('User', userSchema);
+// Export the model
+export default User;
