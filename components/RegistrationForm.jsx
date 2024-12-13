@@ -10,6 +10,7 @@ export default function RegistrationForm() {
     className: "",
     schoolName: "",
     city: "",
+    country: "",
     email: "",
     phoneNumber: "",
     whatsappNumber: "",
@@ -23,11 +24,12 @@ export default function RegistrationForm() {
     className: "",
     schoolName: "",
     city: "",
+    country: "",
     email: "",
     phoneNumber: "",
     whatsappNumber: "",
   });
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -35,17 +37,18 @@ export default function RegistrationForm() {
       [name]: value,
     });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    
     // Reset validation errors
     setValidationErrors({
       fullName: "",
       className: "",
       schoolName: "",
       city: "",
+      country: "",
       email: "",
       phoneNumber: "",
       whatsappNumber: "",
@@ -185,6 +188,29 @@ export default function RegistrationForm() {
                 {validationErrors.city && (
                   <p className="text-red-500 text-xs italic">
                     {validationErrors.city}
+                  </p>
+                )}
+              </div>
+
+              {/* Country */}
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Country:
+                  <input
+                    className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                      validationErrors.city ? "border-red-500" : ""
+                    }`}
+                    type="text"
+                    name="country"
+                    placeholder="Country Name"
+                    value={formData.country}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+                {validationErrors.city && (
+                  <p className="text-red-500 text-xs italic">
+                    {validationErrors.country}
                   </p>
                 )}
               </div>
