@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import ecellLogo from "../public/assets/E-Cell_white.png";
 import epoch from "../public/assets/epoch.png";
-import epochLogo from "../public/assets/epoch logo.png";
+import epochLogo from "../public/assets/epoch_original.png";
 import neoLogo from "../public/assets/neo_logo.png";
 import neoBannerLogo from "../public/assets/neo_black_full.png";
 
@@ -38,28 +38,28 @@ export default function Nav() {
             width={80}
             height={10}
             alt="NEO VNIT"
-            priority className="sm:w10"
+            priority
+            className="sm:w10"
           />
-        <div className=" text-center">
-          <h2 className="text-2xl pt-2 font-bold tracking-tight text-gray-900 sm:text-3xl">
-            NATIONAL ENTREPRENEURSHIP OLYMPIAD 2025
-          </h2>
-          {/* <p className="mt-2 mb-0 text-lg leading-8 text-gray-600">
+          <div className=" text-center">
+            <h2 className="text-2xl pt-2 font-bold tracking-tight text-gray-900 sm:text-3xl">
+              NATIONAL ENTREPRENEURSHIP OLYMPIAD 2025
+            </h2>
+            <h1 className="text-2xl pt-2 font-bold tracking-tight text-orange-400 sm:text-2xl">
+              STUDENT OUTREACH PARTNER
+            </h1>
+            {/* <p className="mt-2 mb-0 text-lg leading-8 text-gray-600">
           
         </p> */}
-        </div>
           </div>
+        </div>
         <div className="flex justify-center my-6">
           <Image
-          src={epochLogo}
-          width={100}
-          height={100}
-          alt="E-Cell Outreach Partner"
+            src={epochLogo}
+            width={500}
+            height={300}
+            alt="E-Cell Outreach Partner"
           />
-          <div className="Outreach-Partner my-3">
-            <h2 className="mx-4 text-orange-600 font-bold sm:text-2xl">Student Outreach Partner</h2>
-            <h2 className="mx-4 font-bold sm:text-2xl">EPOCH Olympiad</h2>
-          </div>
         </div>
         <div className=" text-center">
           <h2 className="text-1xl pt-2 font-bold tracking-tight text-gray-900 sm:text-2xl">
