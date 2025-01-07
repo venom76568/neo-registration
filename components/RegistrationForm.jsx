@@ -66,45 +66,28 @@ export default function RegistrationForm() {
         body: JSON.stringify(formData),
       });
 
-      const rawText = await response.text(); // Get raw text response
-      console.log("Raw Response:", rawText);
-
-      // Attempt to parse the response as JSON
       let data;
-      try {
-        data = JSON.parse(rawText);
-      } catch (jsonError) {
-        console.error("Failed to parse JSON:", jsonError);
-        setResponseMessage(
-          "Unexpected server response. Please try again later."
-        );
-        setResponseType("error");
-        return;
+
+      if (response.headers.get("Content-Type")?.includes("application/json")) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Unexpected response: ${text}`);
       }
 
-      // Handle JSON response
-      if (response.status === 201) {
-        setResponseMessage("Registration successful! 🎉");
+      if (response.ok) {
+        setResponseMessage(data.message || "Registration successful! 🎉");
         setResponseType("success");
         setIsSubmitted(true);
-      } else if (response.status === 400) {
-        if (data.message === "Email already registered") {
-          setResponseMessage(
-            "The email entered already exists. Please try another email."
-          );
-        } else {
-          setResponseMessage("Validation failed. Please check your inputs.");
-        }
-        setResponseType("error");
       } else {
-        setResponseMessage("Something went wrong. Please try again later.");
+        setResponseMessage(
+          data.message || "An error occurred during registration."
+        );
         setResponseType("error");
       }
     } catch (error) {
       console.error("Error during registration:", error);
-      setResponseMessage(
-        "An unexpected error occurred. Please try again later."
-      );
+      setResponseMessage(error.message || "An unexpected error occurred.");
       setResponseType("error");
     } finally {
       setIsLoading(false);
