@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Nav from "./Nav";
 import Success from "./Success";
-
+import Dialogbox from "./Dialogbox";
 export default function RegistrationForm() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -18,6 +18,9 @@ export default function RegistrationForm() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const [responseMessage, setResponseMessage] = useState("");
+  const [responseType, setResponseType] = useState(""); // "success" or "error"
 
   const [validationErrors, setValidationErrors] = useState({
     fullName: "",
@@ -63,26 +66,31 @@ export default function RegistrationForm() {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (response.status === 201) {
-        // Registration successful
-        const data = await response.json();
+        setResponseMessage("Registration successful! 🎉");
+        setResponseType("success");
         setIsSubmitted(true);
       } else if (response.status === 400) {
-        // Validation errors
-        const data = await response.json();
-        if (data.errors) {
-          setValidationErrors(data.errors);
-        } else if (data.message === "Email already registered") {
-          // Show popup if email already exists
-          alert("The email entered already exists. Please try another email.");
+        if (data.message === "Email already registered") {
+          setResponseMessage(
+            "The email entered already exists. Please try another email."
+          );
         } else {
-          console.error("Unexpected error structure:", data);
+          setResponseMessage("Validation failed. Please check your inputs.");
         }
+        setResponseType("error");
       } else {
-        console.error("Registration failed:", response.statusText);
+        setResponseMessage("Something went wrong. Please try again later.");
+        setResponseType("error");
       }
     } catch (error) {
       console.error("Error during registration:", error);
+      setResponseMessage(
+        "An unexpected error occurred. Please try again later."
+      );
+      setResponseType("error");
     } finally {
       setIsLoading(false);
     }
@@ -90,6 +98,11 @@ export default function RegistrationForm() {
 
   return (
     <div>
+      <Dialogbox
+        message={responseMessage}
+        type={responseType}
+        onClose={() => setResponseMessage("")}
+      />
       {isSubmitted ? (
         <Success />
       ) : (

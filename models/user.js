@@ -25,7 +25,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true, // Ensures that email addresses are unique
+    unique: false, // Ensures that email addresses are unique
     lowercase: true, // Converts email to lowercase before saving
     validate: {
       validator: (value) => {
