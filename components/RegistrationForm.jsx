@@ -4,6 +4,7 @@ import { useState } from "react";
 import Nav from "./Nav";
 import Success from "./Success";
 import Dialogbox from "./Dialogbox";
+
 export default function RegistrationForm() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -41,21 +42,32 @@ export default function RegistrationForm() {
     });
   };
 
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.fullName) errors.fullName = "Full Name is required";
+    if (!formData.className) errors.className = "Class is required";
+    if (!formData.schoolName) errors.schoolName = "School Name is required";
+    if (!formData.city) errors.city = "City is required";
+    if (!formData.country) errors.country = "Country is required";
+    if (!formData.email) errors.email = "Email is required";
+    if (!formData.phoneNumber) errors.phoneNumber = "Phone Number is required";
+    if (!formData.whatsappNumber)
+      errors.whatsappNumber = "WhatsApp Number is required";
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setValidationErrors({}); // Clear previous validation errors
 
-    // Reset validation errors
-    setValidationErrors({
-      fullName: "",
-      className: "",
-      schoolName: "",
-      city: "",
-      country: "",
-      email: "",
-      phoneNumber: "",
-      whatsappNumber: "",
-    });
+    // Validate form data
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      setIsLoading(false);
+      return; // Prevent form submission if validation fails
+    }
 
     try {
       const response = await fetch("/api/register", {
