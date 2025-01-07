@@ -29,7 +29,7 @@ export default function RegistrationForm() {
     phoneNumber: "",
     whatsappNumber: "",
   });
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -37,11 +37,11 @@ export default function RegistrationForm() {
       [name]: value,
     });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     // Reset validation errors
     setValidationErrors({
       fullName: "",
@@ -70,8 +70,10 @@ export default function RegistrationForm() {
         console.log("User registered:", data.user);
         setIsSubmitted(true);
       } else if (response.status === 400) {
+        alert("Email alredy exist");
         const data = await response.json();
         console.log("Error data from server:", data); // Log the server error response
+
         if (data.errors) {
           setValidationErrors(data.errors);
         } else {
