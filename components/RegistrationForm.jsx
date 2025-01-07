@@ -70,7 +70,7 @@ export default function RegistrationForm() {
         console.log("User registered:", data.user);
         setIsSubmitted(true);
       } else if (response.status === 400) {
-        alert("Email alredy exist");
+        alert("Email already exist");
         const data = await response.json();
         console.log("Error data from server:", data); // Log the server error response
 
@@ -313,8 +313,8 @@ export default function RegistrationForm() {
                       ></circle>
                       <path
                         className="opacity-75"
+                        d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10V4a8 8 0 110 16v-8z"
                         fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm6 9a8 8 0 010-16V0h4a8 8 0 000 16h-4v-4zm10-"
                       />
                     </svg>
                     Processing...
