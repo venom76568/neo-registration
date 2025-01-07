@@ -54,8 +54,6 @@ export default function RegistrationForm() {
       whatsappNumber: "",
     });
 
-    console.log("Submitting form data:", formData); // Debugging step
-
     try {
       const response = await fetch("/api/register", {
         method: "POST",
@@ -66,18 +64,18 @@ export default function RegistrationForm() {
       });
 
       if (response.status === 201) {
+        // Registration successful
         const data = await response.json();
-        console.log("User registered:", data.user);
         setIsSubmitted(true);
       } else if (response.status === 400) {
-        alert("Email already exist");
+        // Validation errors
         const data = await response.json();
-        console.log("Error data from server:", data); // Log the server error response
-
         if (data.errors) {
           setValidationErrors(data.errors);
+        } else if (data.message === "Email already registered") {
+          // Show popup if email already exists
+          alert("The email entered already exists. Please try another email.");
         } else {
-          // Handle unexpected error structure
           console.error("Unexpected error structure:", data);
         }
       } else {
