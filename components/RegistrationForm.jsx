@@ -66,8 +66,23 @@ export default function RegistrationForm() {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      const rawText = await response.text(); // Get raw text response
+      console.log("Raw Response:", rawText);
 
+      // Attempt to parse the response as JSON
+      let data;
+      try {
+        data = JSON.parse(rawText);
+      } catch (jsonError) {
+        console.error("Failed to parse JSON:", jsonError);
+        setResponseMessage(
+          "Unexpected server response. Please try again later."
+        );
+        setResponseType("error");
+        return;
+      }
+
+      // Handle JSON response
       if (response.status === 201) {
         setResponseMessage("Registration successful! 🎉");
         setResponseType("success");
