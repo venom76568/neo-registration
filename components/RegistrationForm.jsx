@@ -80,12 +80,12 @@ export default function RegistrationForm() {
 
       let data;
 
-      // if (response.headers.get("Content-Type")?.includes("application/json")) {
-      //   data = await response.json();
-      // } else {
-      //   const text = await response.text();
-      //   throw new Error(`Unexpected response: ${text}`);
-      // }
+      if (response.headers.get("Content-Type")?.includes("application/json")) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Unexpected response: ${text}`);
+      }
 
       if (response.ok) {
         setResponseMessage(data.message || "Registration successful! 🎉");
